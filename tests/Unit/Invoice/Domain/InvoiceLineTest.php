@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Invoice\Domain\Unit\Invoice\Domain;
+namespace Tests\Unit\Invoice\Domain;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

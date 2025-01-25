@@ -1,16 +1,16 @@
 <?php
 
-namespace Tests\Unit\Invoice\Domain\Unit\Invoice\Domain;
+namespace Tests\Unit\Invoice\Domain;
 
+use Modules\Invoices\Domain\NegativeQuantityException;
+use Modules\Invoices\Domain\Quantity;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Modules\Invoices\Domain\Price;
-use Modules\Invoices\Domain\NegativePriceException;
 
-class PriceTest extends TestCase
+class QuantityTest extends TestCase
 {
-    #[DataProvider('priceProvider')]
+    #[DataProvider('quantityProvider')]
     #[Test]
     public function it_can_be_created(float $value, ?string $expectedException): void
     {
@@ -18,39 +18,39 @@ class PriceTest extends TestCase
             $this->expectException($expectedException);
         }
 
-        $price = Price::create($value);
+        $quantity = Quantity::create($value);
 
         if ($expectedException === null) {
-            $this->assertInstanceOf(Price::class, $price);
-            $this->assertEquals($value, $price->toFloat());
+            $this->assertInstanceOf(Quantity::class, $quantity);
+            $this->assertEquals($value, $quantity->toFloat());
         }
     }
 
     /**
      * @return array
      */
-    public static function priceProvider(): array
+    public static function quantityProvider(): array
     {
         return [
             [10.0, null],
             [0.0, null],
-            [-1.0, NegativePriceException::class],
+            [-1.0, NegativeQuantityException::class],
         ];
     }
 
-    #[DataProvider('isPositivePriceProvider')]
+    #[DataProvider('isPositiveQuantityProvider')]
     #[Test]
     public function itChecksIfIsPositive(float $value, bool $expectedIsPositiveResult): void
     {
-        $price = Price::create($value);
+        $quantity = Quantity::create($value);
 
-        $this->assertSame($expectedIsPositiveResult, $price->isPositive());
+        $this->assertSame($expectedIsPositiveResult, $quantity->isPositive());
     }
 
     /**
      * @return array
      */
-    public static function isPositivePriceProvider(): array
+    public static function isPositiveQuantityProvider(): array
     {
         return [
             [10.0, true],

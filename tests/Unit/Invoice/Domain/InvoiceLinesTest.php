@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Invoice\Domain\Unit\Invoice\Domain;
+namespace Tests\Unit\Invoice\Domain;
 
 use Modules\Invoices\Domain\InvoiceLines;
 use Modules\Invoices\Domain\Price;

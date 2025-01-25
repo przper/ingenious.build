@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Unit\Invoice\Domain\Unit\Invoice\Domain;
+namespace Tests\Unit\Invoice\Domain;
 
 use Modules\Invoices\Domain\CannotBeSentException;
 use Modules\Invoices\Domain\Enums\StatusEnum;
+use Modules\Invoices\Domain\InvoiceLines;
+use Modules\Invoices\Domain\Price;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Modules\Invoices\Domain\InvoiceLines;
-use Modules\Invoices\Domain\Price;
 use Tests\MotherObjects\Invoice\Domain\InvoiceLineMother;
 use Tests\MotherObjects\Invoice\Domain\InvoiceMother;
 
