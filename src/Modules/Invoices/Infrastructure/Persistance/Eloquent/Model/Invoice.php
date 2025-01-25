@@ -13,6 +13,12 @@ class Invoice extends Model
 
     public $timestamps = true;
 
+    protected $fillable = [
+        'status',
+        'customer_name',
+        'customer_email',
+    ];
+
     protected $casts = [
         'status' => StatusEnum::class,
     ];

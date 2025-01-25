@@ -15,6 +15,12 @@ class InvoiceLine extends Model
 
     public $timestamps = true;
 
+    protected $fillable = [
+        'name',
+        'quantity',
+        'price',
+    ];
+
     public function invoice(): BelongsTo
     {
         return $this->belongsTo(Invoice::class);

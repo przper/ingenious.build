@@ -48,6 +48,7 @@ final readonly class InvoiceFacade implements InvoiceFacadeInterface
 
         return new InvoiceData(
             id: (string) $invoice->getId(),
+            status: $invoice->getStatus()->value,
             customerName: (string) $invoice->getCustomerName(),
             customerEmail: (string) $invoice->getCustomerEmail(),
             lines: $lines,
@@ -82,6 +83,12 @@ final readonly class InvoiceFacade implements InvoiceFacadeInterface
 
     public function send(string $id, ?string $subject = null, ?string $email = null): void
     {
+        $invoice = $this->invoiceRepository->get(new InvoiceId($id));
+
+        if ($invoice === null) {
+            return;
+        }
+
         if ($email === null) {
             $invoice = $this->invoiceRepository->get(new InvoiceId($id));
             $email = $invoice->getCustomerEmail();
@@ -95,5 +102,10 @@ final readonly class InvoiceFacade implements InvoiceFacadeInterface
         );
 
         $this->notifications->notify($data);
+
+        $invoice->send();
+
+        $this->invoiceRepository->persist($invoice);
+    }
     }
 }
