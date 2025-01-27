@@ -2,7 +2,7 @@
 
 namespace Modules\Invoices\Api;
 
-use Modules\Invoices\Api\Dto\InvoiceData;
+use Modules\Invoices\Api\Dtos\InvoiceData;
 
 interface InvoiceFacadeInterface
 {

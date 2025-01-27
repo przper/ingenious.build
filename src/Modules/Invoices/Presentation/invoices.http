@@ -1,0 +1,40 @@
+GET http://localhost:80/api/invoice/f2fc2c02-8a8d-4bce-8dcd-0d8ca9996455
+Accept: application/json
+
+###
+
+POST http://localhost:80/api/invoice/9e0df91a-7540-4700-88ac-3a5a5a178477/send
+Accept: application/json
+
+###
+
+POST http://localhost:80/api/invoice
+Content-Type: application/json
+Accept: application/json
+
+{
+    "customer_name": "no lines",
+    "customer_email": "test@test.com"
+}
+
+###
+
+POST http://localhost:80/api/invoice
+Content-Type: application/json
+Accept: application/json
+
+{
+    "customer_name": "with lines",
+    "customer_email": "test@test.com",
+    "lines": [
+        {
+            "product_name":  "line 1",
+            "quantity": 3.14,
+            "unit_price": 2.99
+        }, {
+            "product_name":  "line 2",
+            "quantity": 15.87,
+            "unit_price": 0.79
+        }
+    ]
+}

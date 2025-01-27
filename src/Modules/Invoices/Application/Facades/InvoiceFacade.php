@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Invoices\Application\Facade;
+namespace Modules\Invoices\Application\Facades;
 
-use Modules\Invoices\Api\Dto\InvoiceData;
-use Modules\Invoices\Api\Dto\InvoiceLineCreateData;
-use Modules\Invoices\Api\Dto\InvoiceLineData;
+use Modules\Invoices\Api\Dtos\InvoiceData;
+use Modules\Invoices\Api\Dtos\InvoiceLineCreateData;
+use Modules\Invoices\Api\Dtos\InvoiceLineData;
 use Modules\Invoices\Api\InvoiceFacadeInterface;
 use Modules\Invoices\Domain\Invoice;
 use Modules\Invoices\Domain\InvoiceId;

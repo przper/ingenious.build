@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Invoices\Api\Dto;
+namespace Modules\Invoices\Api\Dtos;
 
 final readonly class InvoiceData
 {
