@@ -90,7 +90,6 @@ final readonly class InvoiceFacade implements InvoiceFacadeInterface
         }
 
         if ($email === null) {
-            $invoice = $this->invoiceRepository->get(new InvoiceId($id));
             $email = $invoice->getCustomerEmail();
         }
 
@@ -107,5 +106,17 @@ final readonly class InvoiceFacade implements InvoiceFacadeInterface
 
         $this->invoiceRepository->persist($invoice);
     }
+
+    public function confirmDelivery(string $id): void
+    {
+        $invoice = $this->invoiceRepository->get(new InvoiceId($id));
+
+        if ($invoice === null) {
+            return;
+        }
+
+        $invoice->confirmDelivery();
+
+        $this->invoiceRepository->persist($invoice);
     }
 }

@@ -3,6 +3,7 @@
 namespace Tests\Unit\Invoice\Domain;
 
 use Modules\Invoices\Domain\CannotBeSentException;
+use Modules\Invoices\Domain\CannotConfirmDeliveryException;
 use Modules\Invoices\Domain\Enums\StatusEnum;
 use Modules\Invoices\Domain\InvoiceLines;
 use Modules\Invoices\Domain\Price;
@@ -68,8 +69,10 @@ class InvoiceTest extends TestCase
         $invoice->send();
         $this->assertEquals(StatusEnum::Sending, $invoice->getStatus());
     }
+
+    #[DataProvider('sendWrongStatuses')]
     #[Test]
-    public function it_should_not_send_invoice_with_not_filled_lines(): void
+    public function it_should_not_send_invoice_with_not_filled_lines(StatusEnum $status): void
     {
         $invoice = InvoiceMother::init()
             ->status(StatusEnum::Draft)
@@ -81,18 +84,39 @@ class InvoiceTest extends TestCase
 
         $invoice->send();
     }
+
+    public static function sendWrongStatuses(): array
+    {
+        return [
+            'Sending status' => [StatusEnum::Sending],
+            'Sent to client status' => [StatusEnum::SentToClient],
+        ];
+    }
+    #[DataProvider('confirmDeliveryProvider')]
     #[Test]
-    public function it_should_not_send_invoice_with_status_not_draft(): void
+    public function testConfirmDelivery(StatusEnum $status, bool $shouldThrowException): void
     {
         $invoice = InvoiceMother::init()
-            ->status(StatusEnum::SentToClient)
-            ->addLine(InvoiceLineMother::init()->unitPrice(59.99)->quantity(3.21)->build())
-            ->addLine(InvoiceLineMother::init()->unitPrice(299.99)->quantity(0.178)->build())
+            ->status($status)
+            ->addLine(InvoiceLineMother::init()->unitPrice(59.99)->quantity(1)->build())
             ->build();
 
-        $this->expectException(CannotBeSentException::class);
-        $this->expectExceptionMessage("Only Draft invoices can be sent.");
+        if ($shouldThrowException) {
+            $this->expectException(CannotConfirmDeliveryException::class);
+            $this->expectExceptionMessage("Invoice must be sent before confirming delivery");
+        }
 
-        $invoice->send();
+        $invoice->confirmDelivery();
+
+        if (!$shouldThrowException) {
+            $this->assertEquals(StatusEnum::SentToClient, $invoice->getStatus());
+        }
+    }
+
+    public static function confirmDeliveryProvider(): iterable
+    {
+        yield [StatusEnum::Draft, true];
+        yield [StatusEnum::Sending, false];
+        yield [StatusEnum::SentToClient, true];
     }
 }

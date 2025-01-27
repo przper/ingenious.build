@@ -59,6 +59,15 @@ final class Invoice extends AggregateRoot
         $this->status = StatusEnum::Sending;
     }
 
+    public function confirmDelivery(): void
+    {
+        if ($this->status !== StatusEnum::Sending) {
+            throw new CannotConfirmDeliveryException("Invoice must be sent before confirming delivery");
+        }
+
+        $this->status = StatusEnum::SentToClient;
+    }
+
     public function getId(): InvoiceId
     {
         return $this->id;
