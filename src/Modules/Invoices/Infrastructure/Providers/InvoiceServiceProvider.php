@@ -2,36 +2,24 @@
 
 namespace Modules\Invoices\Infrastructure\Providers;
 
-use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Modules\Invoices\Application\Facade\InvoiceFacade;
 use Modules\Invoices\Application\Facade\InvoiceFacadeInterface;
+use Modules\Invoices\Application\Listeners\InvoiceDeliveredListener;
 use Modules\Invoices\Domain\InvoiceRepositoryInterface;
 use Modules\Invoices\Infrastructure\Persistance\Eloquent\InvoiceRepository;
-use Modules\Notifications\Infrastructure\Drivers\DummyDriver;
+use Modules\Notifications\Api\Events\ResourceDeliveredEvent;
 
-final class InvoiceServiceProvider extends ServiceProvider implements DeferrableProvider
+final class InvoiceServiceProvider extends ServiceProvider
 {
-    public $bindings = [
+    public $singletons = [
         InvoiceFacadeInterface::class => InvoiceFacade::class,
         InvoiceRepositoryInterface::class => InvoiceRepository::class,
     ];
 
     public function register(): void
     {
-//        $this->app->scoped(InvoiceFacadeInterface::class, InvoiceFacade::class);
-//
-//        $this->app->singleton(InvoiceFacade::class, static fn($app) => new InvoiceFacade(
-//            invoiceRepository: $app->make(InvoiceRepositoryInterface::class),
-//            notifications: $app->make(DummyDriver::class),
-//        ));
-    }
-
-    /** @return array<class-string> */
-    public function provides(): array
-    {
-        return [
-            InvoiceFacadeInterface::class,
-        ];
+        Event::listen(ResourceDeliveredEvent::class, InvoiceDeliveredListener::class);
     }
 }
