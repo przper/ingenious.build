@@ -2,9 +2,10 @@
 
 namespace Modules\Invoices\Application\Facade;
 
-use Modules\Invoices\Application\Dto\InvoiceData;
-use Modules\Invoices\Application\Dto\InvoiceLineCreateData;
-use Modules\Invoices\Application\Dto\InvoiceLineData;
+use Modules\Invoices\Api\Dto\InvoiceData;
+use Modules\Invoices\Api\Dto\InvoiceLineCreateData;
+use Modules\Invoices\Api\Dto\InvoiceLineData;
+use Modules\Invoices\Api\InvoiceFacadeInterface;
 use Modules\Invoices\Domain\Invoice;
 use Modules\Invoices\Domain\InvoiceId;
 use Modules\Invoices\Domain\InvoiceLine;

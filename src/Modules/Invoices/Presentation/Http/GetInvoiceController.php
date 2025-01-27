@@ -4,7 +4,7 @@ namespace Modules\Invoices\Presentation\Http;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\JsonResponse;
-use Modules\Invoices\Application\Facade\InvoiceFacadeInterface;
+use Modules\Invoices\Api\InvoiceFacadeInterface;
 
 final readonly class GetInvoiceController
 {

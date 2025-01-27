@@ -4,8 +4,8 @@ namespace Modules\Invoices\Presentation\Http;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Modules\Invoices\Application\Dto\InvoiceLineCreateData;
-use Modules\Invoices\Application\Facade\InvoiceFacadeInterface;
+use Modules\Invoices\Api\Dto\InvoiceLineCreateData;
+use Modules\Invoices\Api\InvoiceFacadeInterface;
 
 final readonly class CreateInvoiceController
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Invoices\Application\Facade;
+namespace Modules\Invoices\Api;
 
-use Modules\Invoices\Application\Dto\InvoiceData;
+use Modules\Invoices\Api\Dto\InvoiceData;
 
 interface InvoiceFacadeInterface
 {

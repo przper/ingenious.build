@@ -2,7 +2,7 @@
 
 namespace Modules\Invoices\Application\Listeners;
 
-use Modules\Invoices\Application\Facade\InvoiceFacadeInterface;
+use Modules\Invoices\Api\InvoiceFacadeInterface;
 use Modules\Notifications\Api\Events\ResourceDeliveredEvent;
 
 class InvoiceDeliveredListener
