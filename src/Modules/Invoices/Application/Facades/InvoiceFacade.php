@@ -38,7 +38,7 @@ final readonly class InvoiceFacade implements InvoiceFacadeInterface
         $lines = [];
         foreach ($invoice->getLines() as $line) {
             $lines[] = new InvoiceLineData(
-                id: (string) $line->getId(),
+                id: Uuid::fromString($line->getId()),
                 invoiceId: (string) $invoice->getId(),
                 productName: (string) $line->getProductName(),
                 unitPrice: $line->getUnitPrice()->toFloat(),
@@ -48,7 +48,7 @@ final readonly class InvoiceFacade implements InvoiceFacadeInterface
         }
 
         return new InvoiceData(
-            id: (string) $invoice->getId(),
+            id: Uuid::fromString($invoice->getId()),
             status: $invoice->getStatus()->value,
             customerName: (string) $invoice->getCustomerName(),
             customerEmail: (string) $invoice->getCustomerEmail(),
